@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perion Internal Systems — Level 5 Brand Governance Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       PERION LEVEL 5 BRAND GOVERNANCE — CSS DESIGN TOKENS
+       3-Color Law: Strictly enforced. No gradients. No shadows.
+       No rounded corners. No 3D effects. Flat brutalist industrial.
+    ═══════════════════════════════════════════════════════════ */
+    :root {
+      --perion-midnight:  #0A1D33;
+      --perion-graphite:  #2B2E34;
+      --perion-amber:     #F2A900;
+      --perion-grey:      #F5F5F7;
+      --perion-white:     #FFFFFF;
+      --perion-rule:      #D1D1D6;
+      --perion-subtext:   #5A5A60;
+
+      --font-primary: 'Inter', 'Helvetica Neue', sans-serif;
+      --font-display: 'Barlow Condensed', 'Helvetica Neue', sans-serif;
+      --font-body:    'Barlow', 'Helvetica Neue', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: var(--font-primary);
+      background-color: var(--perion-grey);
+      color: var(--perion-graphite);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── UTILITY ── */
+    .tabular { font-variant-numeric: tabular-nums; }
+
+    /* ═══════════════════════════════════════════════════════════
+       GLOBAL MASTER HEADER
+    ═══════════════════════════════════════════════════════════ */
+    #global-header {
+      background-color: var(--perion-midnight);
+      width: 100%;
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      border-bottom: 3px solid var(--perion-amber);
+    }
+
+    #global-header .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0;
+    }
+
+    /* Amber accent tab — left edge of header */
+    #global-header .header-amber-tab {
+      width: 6px;
+      background-color: var(--perion-amber);
+      align-self: stretch;
+      flex-shrink: 0;
+    }
+
+    #global-header .header-brand {
+      padding: 14px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 3px;
+    }
+
+    #global-header .header-eyebrow {
+      font-family: var(--font-primary);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--perion-amber);
+    }
+
+    #global-header .header-title {
+      font-family: var(--font-primary);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--perion-white);
+      line-height: 1;
+    }
+
+    #global-header .header-right {
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 20px;
+    }
+
+    #global-header .header-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+    }
+
+    #global-header .badge-label {
+      font-family: var(--font-primary);
+      font-size: 7.5px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--perion-amber);
+    }
+
+    #global-header .badge-value {
+      font-family: var(--font-primary);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--perion-white);
+    }
+
+    /* Vertical divider between badges */
+    .header-vdivider {
+      width: 1px;
+      height: 28px;
+      background-color: rgba(255,255,255,0.15);
+      flex-shrink: 0;
+    }
+
+    /* Status indicator pill (NO rounded shape — rectangular) */
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid rgba(242,169,0,0.35);
+      padding: 5px 10px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--perion-amber);
+      flex-shrink: 0;
+      animation: pulse-dot 2.4s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    .status-label {
+      font-family: var(--font-primary);
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--perion-amber);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SYSTEM NAV RAIL (below master header)
+    ═══════════════════════════════════════════════════════════ */
+    #system-nav {
+      width: 100%;
+      background-color: var(--perion-white);
+      border-bottom: 2px solid var(--perion-midnight);
+      display: flex;
+      align-items: stretch;
+    }
+
+    .nav-breadcrumb {
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 0;
+      flex: 1;
+    }
+
+    .nav-crumb {
+      font-family: var(--font-primary);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--perion-subtext);
+      padding: 10px 0;
+    }
+
+    .nav-crumb-sep {
+      font-size: 9px;
+      color: var(--perion-rule);
+      margin: 0 10px;
+    }
+
+    .nav-crumb.active {
+      color: var(--perion-midnight);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 16px;
+    }
+
+    .nav-tag {
+      font-family: var(--font-primary);
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--perion-graphite);
+      border: 1px solid var(--perion-rule);
+      padding: 4px 9px;
+    }
+
+    .nav-tag.amber {
+      background-color: var(--perion-amber);
+      border-color: var(--perion-amber);
+      color: var(--perion-midnight);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       MAIN PAGE LAYOUT
+    ═══════════════════════════════════════════════════════════ */
+    #page-body {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       PAGE SECTION TITLE (above compliance mandate)
+    ═══════════════════════════════════════════════════════════ */
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--perion-midnight);
+      padding-bottom: 12px;
+    }
+
+    .section-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-primary);
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--perion-amber);
+    }
+
+    .section-title {
+      font-family: var(--font-primary);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--perion-midnight);
+      line-height: 1;
+    }
+
+    .section-meta {
+      font-family: var(--font-primary);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--perion-subtext);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       COMPLIANCE MANDATE BOX
+    ═══════════════════════════════════════════════════════════ */
+    #compliance-mandate {
+      background-color: var(--perion-grey);
+      border-left: 5px solid var(--perion-amber);
+      border-top: 1px solid var(--perion-rule);
+      border-right: 1px solid var(--perion-rule);
+      border-bottom: 1px solid var(--perion-rule);
+      padding: 0;
+      margin-bottom: 28px;
+    }
+
+    .mandate-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--perion-rule);
+      background-color: var(--perion-white);
+    }
+
+    .mandate-heading {
+      font-family: var(--font-primary);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--perion-graphite);
+    }
+
+    .mandate-ref {
+      font-family: var(--font-primary);
+      font-size: 7.5px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--perion-subtext);
+      text-transform: uppercase;
+    }
+
+    .mandate-body {
+      padding: 16px 20px;
+    }
+
+    .mandate-body p {
+      font-family: var(--font-primary);
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--perion-graphite);
+      line-height: 1.65;
+      max-width: 75ch;
+    }
+
+    /* Instruction list inside mandate */
+    .mandate-steps {
+      display: flex;
+      gap: 0;
+      margin-top: 16px;
+      border-top: 1px solid var(--perion-rule);
+      padding-top: 14px;
+    }
+
+    .mandate-step {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 0 16px 0 0;
+      border-right: 1px solid var(--perion-rule);
+    }
+
+    .mandate-step:last-child {
+      border-right: none;
+      padding-right: 0;
+      padding-left: 16px;
+    }
+
+    .mandate-step:first-child {
+      padding-left: 0;
+    }
+
+    .step-num {
+      width: 22px;
+      height: 22px;
+      background-color: var(--perion-midnight);
+      color: var(--perion-white);
+      font-family: var(--font-primary);
+      font-size: 9px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      letter-spacing: 0.05em;
+    }
+
+    .step-text {
+      font-family: var(--font-primary);
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--perion-graphite);
+      line-height: 1.5;
+    }
+
+    .step-text strong {
+      display: block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--perion-midnight);
+      margin-bottom: 2px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       GENERATOR MOUNT — the frame that hosts the signature tool
+    ═══════════════════════════════════════════════════════════ */
+    #generator-mount {
+      border: 2px solid var(--perion-midnight);
+    }
+
+    .mount-header {
+      background-color: var(--perion-midnight);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px;
+    }
+
+    .mount-title {
+      font-family: var(--font-primary);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--perion-white);
+    }
+
+    .mount-status-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mount-tag {
+      font-family: var(--font-primary);
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--perion-midnight);
+      background-color: var(--perion-amber);
+      padding: 3px 8px;
+    }
+
+    .mount-live-dot {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-primary);
+      font-size: 7px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .live-dot {
+      width: 5px;
+      height: 5px;
+      background-color: var(--perion-amber);
+      animation: pulse-dot 2s infinite;
+    }
+
+    /* ── GENERATOR INNER SHELL ── */
+    #generator-shell {
+      background-color: var(--perion-white);
+      padding: 32px;
+    }
+
+    /* ── TYPE SWITCHER ── */
+    .type-switcher {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+      border: 2px solid var(--perion-midnight);
+    }
+
+    .type-btn {
+      flex: 1;
+      padding: 12px 16px;
+      font-family: var(--font-primary);
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      background-color: var(--perion-white);
+      color: var(--perion-graphite);
+      border-right: 1px solid var(--perion-midnight);
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .type-btn:last-child { border-right: none; }
+
+    .type-btn.active {
+      background-color: var(--perion-midnight);
+      color: var(--perion-white);
+    }
+
+    .type-btn.active .btn-tag {
+      background-color: var(--perion-amber);
+      color: var(--perion-midnight);
+    }
+
+    .btn-tag {
+      display: inline-block;
+      font-size: 6.5px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background-color: var(--perion-graphite);
+      color: var(--perion-white);
+      padding: 2px 6px;
+      margin-right: 7px;
+    }
+
+    /* ── MAIN GRID ── */
+    .generator-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    @media (max-width: 720px) {
+      .generator-grid { grid-template-columns: 1fr; }
+      .mandate-steps  { flex-direction: column; gap: 12px; }
+      .mandate-step   { border-right: none; border-bottom: 1px solid var(--perion-rule); padding: 0 0 12px 0 !important; }
+      .mandate-step:last-child { border-bottom: none; }
+    }
+
+    /* ── FORM COLUMN ── */
+    .form-col {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field-label {
+      font-family: var(--font-primary);
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: var(--perion-graphite);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .field-label .lbl-required {
+      color: var(--perion-amber);
+      font-size: 9px;
+    }
+
+    .field-input,
+    .field-select {
+      width: 100%;
+      padding: 11px 14px;
+      font-family: var(--font-primary);
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--perion-graphite);
+      background-color: var(--perion-white);
+      border: 1.5px solid var(--perion-rule);
+      border-radius: 0; /* brutalist — no rounded corners */
+      outline: none;
+      transition: border-color 0.15s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .field-input:focus,
+    .field-select:focus {
+      border-color: var(--perion-amber);
+      background-color: #FFFDF5;
+    }
+
+    .field-input::placeholder { color: #ABABAB; font-weight: 400; }
+
+    /* Domain lock badge (below email field) */
+    .domain-lock {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      background-color: var(--perion-grey);
+      border-left: 3px solid var(--perion-midnight);
+    }
+
+    .domain-lock-icon {
+      width: 10px;
+      height: 10px;
+      fill: var(--perion-midnight);
+      flex-shrink: 0;
+    }
+
+    .domain-lock-text {
+      font-family: var(--font-primary);
+      font-size: 8.5px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--perion-midnight);
+    }
+
+    /* custom title input (hidden by default) */
+    #customTitle { display: none; margin-top: 8px; }
+    #customTitle.visible { display: block; }
+
+    /* select arrow (custom) */
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: '▾';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      color: var(--perion-graphite);
+      pointer-events: none;
+    }
+
+    /* ── GENERATE BUTTON ── */
+    .generate-btn {
+      width: 100%;
+      padding: 15px 20px;
+      margin-top: 6px;
+      background-color: var(--perion-amber);
+      color: var(--perion-midnight);
+      font-family: var(--font-primary);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: background-color 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .generate-btn:hover { background-color: #D99600; }
+    .generate-btn:active { background-color: #C08500; }
+
+    .generate-btn .btn-arrow {
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    /* ── PREVIEW COLUMN ── */
+    .preview-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1.5px solid var(--perion-rule);
+    }
+
+    .preview-header {
+      background-color: var(--perion-grey);
+      border-bottom: 1.5px solid var(--perion-rule);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .preview-label {
+      font-family: var(--font-primary);
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--perion-subtext);
+    }
+
+    .preview-type-badge {
+      font-family: var(--font-primary);
+      font-size: 6.5px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background-color: var(--perion-midnight);
+      color: var(--perion-white);
+      padding: 3px 8px;
+    }
+
+    .preview-area {
+      min-height: 260px;
+      padding: 0;
+      background-color: var(--perion-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: auto;
+    }
+
+    .preview-area > #live-preview {
+      width: 100%;
+    }
+
+    /* Empty state */
+    .preview-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.35;
+    }
+
+    .preview-empty-icon {
+      width: 36px;
+      height: 36px;
+      fill: var(--perion-midnight);
+    }
+
+    .preview-empty-text {
+      font-family: var(--font-primary);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--perion-midnight);
+      text-align: center;
+    }
+
+    /* ── HTML OUTPUT SECTION ── */
+    .html-output-section {
+      background-color: var(--perion-midnight);
+      border-top: 1.5px solid var(--perion-rule);
+    }
+
+    .html-output-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .html-output-label {
+      font-family: var(--font-primary);
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .copy-btn {
+      padding: 5px 12px;
+      background-color: transparent;
+      border: 1px solid var(--perion-amber);
+      color: var(--perion-amber);
+      font-family: var(--font-primary);
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 0;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    .copy-btn:hover {
+      background-color: var(--perion-amber);
+      color: var(--perion-midnight);
+    }
+
+    #html-output {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 9.5px;
+      line-height: 1.55;
+      color: #6EE7B7;
+      background-color: #020D1A;
+      padding: 14px;
+      margin: 0;
+      max-height: 180px;
+      overflow: auto;
+      white-space: pre;
+      display: block;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       INSTALL INSTRUCTIONS (below generator)
+    ═══════════════════════════════════════════════════════════ */
+    #install-note {
+      margin-top: 28px;
+      border: 1.5px solid var(--perion-rule);
+      border-left: 4px solid var(--perion-midnight);
+    }
+
+    .install-note-header {
+      background-color: var(--perion-grey);
+      border-bottom: 1px solid var(--perion-rule);
+      padding: 9px 16px;
+      font-family: var(--font-primary);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--perion-graphite);
+    }
+
+    .install-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background-color: var(--perion-white);
+    }
+
+    .install-step {
+      padding: 16px;
+      border-right: 1px solid var(--perion-rule);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .install-step:last-child { border-right: none; }
+
+    .install-step-num {
+      font-family: var(--font-primary);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--perion-grey);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .install-step-title {
+      font-family: var(--font-primary);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--perion-midnight);
+    }
+
+    .install-step-body {
+      font-family: var(--font-primary);
+      font-size: 11.5px;
+      font-weight: 400;
+      color: var(--perion-graphite);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       GOVERNANCE COMPLIANCE TABLE (below generator)
+    ═══════════════════════════════════════════════════════════ */
+    #governance-table {
+      margin-top: 28px;
+      border: 1.5px solid var(--perion-midnight);
+    }
+
+    .gov-table-header {
+      background-color: var(--perion-midnight);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .gov-table-title {
+      font-family: var(--font-primary);
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--perion-white);
+    }
+
+    .gov-table-ref {
+      font-family: var(--font-primary);
+      font-size: 7px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      color: var(--perion-amber);
+    }
+
+    table.gov-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-primary);
+      font-size: 11.5px;
+      color: var(--perion-graphite);
+    }
+
+    table.gov-table thead th {
+      background-color: #132A47;
+      color: var(--perion-white);
+      text-align: left;
+      padding: 9px 16px;
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+
+    table.gov-table thead th:last-child { border-right: none; }
+
+    table.gov-table tbody td {
+      padding: 10px 16px;
+      border-top: 1px solid var(--perion-rule);
+      border-right: 1px solid var(--perion-rule);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    table.gov-table tbody td:last-child { border-right: none; }
+
+    table.gov-table tbody tr:nth-child(even) td {
+      background-color: var(--perion-grey);
+    }
+
+    .status-compliant {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--perion-midnight);
+    }
+
+    .status-compliant::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background-color: var(--perion-amber);
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       GLOBAL FOOTER
+    ═══════════════════════════════════════════════════════════ */
+    #global-footer {
+      background-color: var(--perion-midnight);
+      border-top: 3px solid var(--perion-amber);
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 64px;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-brand {
+      font-family: var(--font-primary);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--perion-white);
+    }
+
+    .footer-sub {
+      font-family: var(--font-primary);
+      font-size: 7px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-meta {
+      font-family: var(--font-primary);
+      font-size: 7.5px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--perion-amber);
+    }
+
+    .footer-divider {
+      width: 1px;
+      height: 18px;
+      background-color: rgba(255,255,255,0.12);
+    }
+
+    .footer-legal {
+      font-family: var(--font-primary);
+      font-size: 7px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.06em;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ALERT TOAST (copy confirmation)
+    ═══════════════════════════════════════════════════════════ */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background-color: var(--perion-midnight);
+      border-left: 4px solid var(--perion-amber);
+      border-top: 1px solid rgba(242,169,0,0.3);
+      border-right: 1px solid rgba(242,169,0,0.3);
+      border-bottom: 1px solid rgba(242,169,0,0.3);
+      padding: 12px 20px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+    }
+
+    #toast.show { display: flex; }
+
+    .toast-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--perion-amber);
+      flex-shrink: 0;
+    }
+
+    .toast-text {
+      font-family: var(--font-primary);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--perion-white);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       GLOBAL MASTER HEADER
+  ═══════════════════════════════════════════════════════════ -->
+  <header id="global-header">
+    <div class="header-left">
+      <div class="header-amber-tab"></div>
+      <div class="header-brand">
+        <div class="header-eyebrow">Perion Perimeter Lighting Systems</div>
+        <div class="header-title">Perion Internal Systems</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-badge">
+        <span class="badge-label">Classification</span>
+        <span class="badge-value">Internal — Restricted</span>
+      </div>
+      <div class="header-vdivider"></div>
+      <div class="header-badge">
+        <span class="badge-label">Governance Standard</span>
+        <span class="badge-value">Level 5 Brand Governance</span>
+      </div>
+      <div class="header-vdivider"></div>
+      <div class="header-status">
+        <div class="status-dot"></div>
+        <div class="status-label">System Active</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── SYSTEM NAV RAIL ── -->
+  <nav id="system-nav">
+    <div class="nav-breadcrumb">
+      <span class="nav-crumb">Internal Systems</span>
+      <span class="nav-crumb-sep">›</span>
+      <span class="nav-crumb">Brand Governance</span>
+      <span class="nav-crumb-sep">›</span>
+      <span class="nav-crumb active">Signature Compliance Engine</span>
+    </div>
+    <div class="nav-actions">
+      <span class="nav-tag">DOC: PRN-SIG-L5-001</span>
+      <span class="nav-tag">REV: A</span>
+      <span class="nav-tag amber">● Live</span>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MAIN PAGE BODY
+  ═══════════════════════════════════════════════════════════ -->
+  <main id="page-body">
+
+    <!-- PAGE SECTION HEADER -->
+    <div class="section-header">
+      <div class="section-title-group">
+        <div class="section-eyebrow">Level 5 Brand Constitution — Email Identity</div>
+        <div class="section-title">Email Signature Compliance Engine</div>
+      </div>
+      <div class="section-meta">Effective: Immediately · Mandatory · All Staff</div>
+    </div>
+
+    <!-- ── COMPLIANCE MANDATE BOX ── -->
+    <div id="compliance-mandate">
+      <div class="mandate-header">
+        <div class="mandate-heading">⚑ &nbsp;Toggle <strong style="color:var(--perion-amber);">New Email</strong> for the full branded card — switch to <strong style="color:var(--perion-amber);">Reply / Forward</strong> for the compact variant. Generate once per type and install both. Your <strong style="color:var(--perion-amber);">.VCF contact card</strong> is auto-populated from your details and embedded directly in the New Email signature.</div>
+        <div class="mandate-ref">Ref: PRN-BRAND-GOV-L5-SIG · All Departments</div>
+      </div>
+      <div class="mandate-body">
+        <p>
+          Enter your details below. The system is hard-locked
+          to the <strong>@perionlighting.com</strong> domain to prevent brand drift.
+          Do not attempt to alter the output.
+        </p>
+
+        <div class="mandate-steps">
+          <div class="mandate-step">
+            <div class="step-num">01</div>
+            <div class="step-text">
+              <strong>Select Type</strong>
+              Choose New Email for full-format or Reply for the compact variant.
+            </div>
+          </div>
+          <div class="mandate-step">
+            <div class="step-num">02</div>
+            <div class="step-text">
+              <strong>Enter Details</strong>
+              Fill in your full name, governed title, phone, and @perionlighting.com address.
+            </div>
+          </div>
+          <div class="mandate-step">
+            <div class="step-num">03</div>
+            <div class="step-text">
+              <strong>Generate &amp; Copy</strong>
+              Click Generate. Copy the HTML. Paste into Outlook / Gmail Signature settings.
+            </div>
+          </div>
+          <div class="mandate-step">
+            <div class="step-num">04</div>
+            <div class="step-text">
+              <strong>Verify Output</strong>
+              Confirm the live preview matches the Perion brand standard before deploying.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GENERATOR MOUNT ── -->
+    <div id="generator-mount">
+      <div class="mount-header">
+        <div class="mount-title">Signature Generation Engine — Component Mount</div>
+        <div class="mount-status-row">
+          <span class="mount-tag">Domain Locked: @perionlighting.com</span>
+          <span class="mount-live-dot">
+            <span class="live-dot"></span>
+            Engine Active
+          </span>
+        </div>
+      </div>
+
+      <div id="generator-shell">
+
+        <!-- TYPE SWITCHER -->
+        <div class="type-switcher" role="group" aria-label="Signature type selector">
+          <button class="type-btn active" id="btn-new" onclick="switchType('new')">
+            <span class="btn-tag">Full</span>New Email Signature
+          </button>
+          <button class="type-btn" id="btn-reply" onclick="switchType('reply')">
+            <span class="btn-tag">Compact</span>Reply / Forward Signature
+          </button>
+        </div>
+
+        <!-- MAIN GENERATOR GRID -->
+        <div class="generator-grid">
+
+          <!-- FORM COLUMN -->
+          <div class="form-col">
+
+            <div class="field-group">
+              <label class="field-label" for="name">
+                Full Name <span class="lbl-required">*</span>
+              </label>
+              <input class="field-input" id="name" type="text"
+                     placeholder="e.g. Gino Theron"
+                     autocomplete="name"/>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="title">
+                Governed Job Title <span class="lbl-required">*</span>
+              </label>
+              <div class="select-wrap">
+                <select class="field-select" id="title" onchange="handleTitleChange()">
+                  <option value="Sales Agent">Sales Agent</option>
+                  <option value="Perimeter Infrastructure Specialist" selected>Perimeter Infrastructure Specialist</option>
+                  <option value="Technical Sales Consultant">Technical Sales Consultant</option>
+                  <option value="Project Manager">Project Manager</option>
+                  <option value="Operations Manager">Operations Manager</option>
+                  <option value="Managing Director">Managing Director</option>
+                  <option value="Financial Manager">Financial Manager</option>
+                  <option value="Marketing Manager">Marketing Manager</option>
+                  <option value="Logistics Coordinator">Logistics Coordinator</option>
+                  <option value="Customer Success Manager">Customer Success Manager</option>
+                  <option value="Field Technician">Field Technician</option>
+                  <option value="Design Engineer">Design Engineer</option>
+                  <option value="Other">Other — Specify Below</option>
+                </select>
+              </div>
+              <input class="field-input" id="customTitle" type="text"
+                     placeholder="Enter custom governed title"/>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="phone">
+                Mobile / Direct Number <span class="lbl-required">*</span>
+              </label>
+              <input class="field-input" id="phone" type="tel"
+                     placeholder="+27 71 259 0169"
+                     autocomplete="tel"/>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="email">
+                Corporate Email <span class="lbl-required">*</span>
+              </label>
+              <input class="field-input" id="email" type="email"
+                     placeholder="name@perionlighting.com"
+                     autocomplete="email"/>
+              <div class="domain-lock">
+                <svg class="domain-lock-icon" viewBox="0 0 16 16">
+                  <path d="M8 1a3 3 0 0 0-3 3v2H4a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1V4a3 3 0 0 0-3-3zm0 1.5a1.5 1.5 0 0 1 1.5 1.5v2h-3V4A1.5 1.5 0 0 1 8 2.5z"/>
+                </svg>
+                <span class="domain-lock-text">
+                  Hard-locked to @perionlighting.com · Enforced by Brand Governance
+                </span>
+              </div>
+            </div>
+
+            <button class="generate-btn" onclick="generateSignature()">
+              <span class="btn-arrow">→</span>
+              Generate Governed Signature
+            </button>
+          </div>
+
+          <!-- PREVIEW COLUMN -->
+          <div class="preview-col">
+            <div class="preview-header">
+              <div class="preview-label">Live Preview</div>
+              <div id="preview-type-badge" class="preview-type-badge">New Email — Full Format</div>
+            </div>
+            <div class="preview-area" id="preview-area">
+              <div id="live-preview">
+                <!-- Empty state -->
+                <div class="preview-empty" id="preview-empty">
+                  <svg class="preview-empty-icon" viewBox="0 0 48 48">
+                    <rect x="6" y="10" width="36" height="28" rx="0" fill="none" stroke="#0A1D33" stroke-width="2"/>
+                    <line x1="6" y1="18" x2="42" y2="18" stroke="#0A1D33" stroke-width="2"/>
+                    <rect x="10" y="22" width="12" height="10" fill="#0A1D33" opacity="0.25"/>
+                    <line x1="26" y1="24" x2="38" y2="24" stroke="#0A1D33" stroke-width="1.5" opacity="0.4"/>
+                    <line x1="26" y1="28" x2="35" y2="28" stroke="#0A1D33" stroke-width="1.5" opacity="0.4"/>
+                    <line x1="10" y1="36" x2="38" y2="36" stroke="#F2A900" stroke-width="2"/>
+                  </svg>
+                  <div class="preview-empty-text">Fill in your details<br>and click Generate</div>
+                </div>
+              </div>
+            </div>
+            <div class="html-output-section">
+              <div class="html-output-header">
+                <span class="html-output-label">HTML Source — Copy &amp; Paste into Email Client</span>
+                <button class="copy-btn" onclick="copyHTML()">Copy HTML</button>
+              </div>
+              <pre id="html-output"><!-- Signature HTML will appear here after generation --></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── INSTALL INSTRUCTIONS ── -->
+    <div id="install-note">
+      <div class="install-note-header">Installation Instructions — Client-Specific</div>
+      <div class="install-steps-grid" id="install-steps-content">
+        <div class="install-step">
+          <div class="install-step-num">01</div>
+          <div class="install-step-title">Microsoft Outlook</div>
+          <div class="install-step-body">
+            File → Options → Mail → Signatures.<br>
+            Create New. Switch editor to HTML.<br>
+            Paste the generated code. Save.
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="install-step-num">02</div>
+          <div class="install-step-title">Gmail / Google Workspace</div>
+          <div class="install-step-body">
+            Settings → See all settings → General → Signature.<br>
+            Create New. Click the source (&lt;&gt;) icon.<br>
+            Paste the HTML code. Save Changes.
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="install-step-num">03</div>
+          <div class="install-step-title">Apple Mail</div>
+          <div class="install-step-body">
+            Open HTML in Safari. Select all visible content.<br>
+            Copy. In Apple Mail → Preferences → Signatures.<br>
+            Paste. Disable "Always match default font".
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GOVERNANCE COMPLIANCE TABLE ── -->
+    <div id="governance-table">
+      <div class="gov-table-header">
+        <div class="gov-table-title">Level 5 Brand Governance — Signature Specification Record</div>
+        <div class="gov-table-ref">REF: PRN-BRAND-GOV-L5 · REV A · MANDATORY COMPLIANCE</div>
+      </div>
+      <table class="gov-table" aria-label="Brand governance specification">
+        <thead>
+          <tr>
+            <th style="width:28%">Governance Parameter</th>
+            <th style="width:36%">Specification</th>
+            <th style="width:18%">Status</th>
+            <th style="width:18%">Enforcement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Email Domain</strong></td>
+            <td>Hard-locked: @perionlighting.com only</td>
+            <td><span class="status-compliant">Enforced</span></td>
+            <td>System</td>
+          </tr>
+          <tr>
+            <td><strong>Primary Font</strong></td>
+            <td>Barlow Condensed (name) · Barlow (contact data)</td>
+            <td><span class="status-compliant">Compliant</span></td>
+            <td>Template</td>
+          </tr>
+          <tr>
+            <td><strong>Brand Palette</strong></td>
+            <td>Midnight Blue #0A1D33 · Amber #F2A900 · Graphite #2B2E34</td>
+            <td><span class="status-compliant">Compliant</span></td>
+            <td>Template</td>
+          </tr>
+          <tr>
+            <td><strong>Logo Asset</strong></td>
+            <td>Perion Primary Logo — Transparent PNG · 185 px wide</td>
+            <td><span class="status-compliant">Active</span></td>
+            <td>CDN</td>
+          </tr>
+          <tr>
+            <td><strong>Tagline</strong></td>
+            <td>"Lighting That Secures. Infrastructure That Makes Sense."</td>
+            <td><span class="status-compliant">Locked</span></td>
+            <td>Template</td>
+          </tr>
+          <tr>
+            <td><strong>Contact Format (VCF)</strong></td>
+            <td>vCard 3.0 · Auto-generated · Downloadable from signature</td>
+            <td><span class="status-compliant">Active</span></td>
+            <td>System</td>
+          </tr>
+          <tr>
+            <td><strong>Reply Format</strong></td>
+            <td>Compact horizontal layout · Logo + name + contact details</td>
+            <td><span class="status-compliant">Compliant</span></td>
+            <td>Template</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       GLOBAL FOOTER
+  ═══════════════════════════════════════════════════════════ -->
+  <footer id="global-footer">
+    <div class="footer-left">
+      <div class="footer-brand">Perion Perimeter Lighting Systems</div>
+      <div class="footer-sub">Internal Systems Division — Brand Governance Portal</div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-meta">DOC: PRN-SIG-L5-001 · REV A</div>
+      <div class="footer-divider"></div>
+      <div class="footer-meta">Level 5 Brand Constitution</div>
+      <div class="footer-divider"></div>
+      <div class="footer-legal">© Perion Lighting — Internal Use Only — Do Not Distribute</div>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       COPY TOAST NOTIFICATION
+  ═══════════════════════════════════════════════════════════ -->
+  <div id="toast">
+    <div class="toast-dot"></div>
+    <div class="toast-text">HTML Copied — Paste into Email Client</div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SIGNATURE ENGINE — JAVASCRIPT
+  ═══════════════════════════════════════════════════════════ -->
+  <script>
+    /* ── CONFIG ── */
+    const LOGO_URL = "https://raw.githubusercontent.com/veltscout/perion-email-signatures/main/PERION-Primary-Logo-Transparent.png";
+    const LOCKED_DOMAIN = "perionlighting.com";
+
+    let currentType = "new";
+    let currentHTML = "";
+
+    /* ── TYPE SWITCHER ── */
+    function switchType(type) {
+      currentType = type;
+
+      const btnNew   = document.getElementById("btn-new");
+      const btnReply = document.getElementById("btn-reply");
+      const badge    = document.getElementById("preview-type-badge");
+
+      btnNew.classList.toggle("active",   type === "new");
+      btnReply.classList.toggle("active", type === "reply");
+
+      if (badge) {
+        badge.textContent = type === "new"
+          ? "New Email — Full Format"
+          : "Reply / Forward — Compact";
+      }
+    }
+
+    /* ── TITLE SELECT HANDLER ── */
+    function handleTitleChange() {
+      const select = document.getElementById("title");
+      const custom = document.getElementById("customTitle");
+      if (select.value === "Other") {
+        custom.classList.add("visible");
+        custom.focus();
+      } else {
+        custom.classList.remove("visible");
+      }
+    }
+
+    /* ── vCARD BUILDER ── */
+    function buildVCF(name, title, phone, email) {
+      const parts = name.trim().split(" ");
+      const first = parts[0];
+      const last  = parts.slice(1).join(" ");
+      return [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        `FN:${name}`,
+        `N:${last};${first};;;`,
+        `TITLE:${title}`,
+        "ORG:Perion Perimeter Lighting Systems",
+        `TEL;TYPE=CELL:${phone}`,
+        `EMAIL;TYPE=WORK:${email}`,
+        "URL:https://www.perionlighting.com",
+        "END:VCARD"
+      ].join("\n");
+    }
+
+    /* ── DOMAIN VALIDATION ── */
+    function validateEmail(email) {
+      if (!email.includes("@")) return false;
+      const domain = email.split("@")[1];
+      return domain && domain.toLowerCase() === LOCKED_DOMAIN;
+    }
+
+    /* ── NEW EMAIL SIGNATURE HTML ── */
+    function buildNewEmailHTML(d) {
+      const vcf      = encodeURIComponent(buildVCF(d.name, d.title, d.phone, d.email));
+      const filename = d.name.toLowerCase().replace(/\s+/g, "_");
+      return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>${d.name} — Perion Signature</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;}
+body{margin:0;min-height:100vh;background:#F5F5F7;display:flex;align-items:center;justify-content:center;padding:48px 24px;font-family:'Roboto',Helvetica,Arial,sans-serif;}
+.wrap{display:flex;flex-direction:column;align-items:center;gap:16px;}
+.lbl{font-family:'Oswald',Arial,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#2B2E34;opacity:0.5;}
+.shell{background:#fff;border-radius:2px;overflow:hidden;}
+.btn-save:hover{background:#F5C400!important;}
+.btn-pdf:hover,.btn-vcf:hover{background:#F5F5F7!important;}
+@media print{body{background:#fff;padding:0;}.lbl,.btn-row,.note{display:none!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<p class="lbl">Email Signature · Perion Perimeter Lighting Systems</p>
+<div class="shell">
+<table cellpadding="0" cellspacing="0" border="0" width="460" style="table-layout:fixed;line-height:0;font-size:0;">
+<tr>
+  <td width="284" height="4" bgcolor="#0A1D33">&nbsp;</td>
+  <td width="44"  height="4" bgcolor="#F2A900">&nbsp;</td>
+  <td width="132" height="4" bgcolor="#0A1D33">&nbsp;</td>
+</tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="460" style="background:#fff;table-layout:fixed;font-family:'Roboto',Helvetica,Arial,sans-serif;font-size:13px;color:#2B2E34;line-height:1.5;">
+<tr>
+  <td colspan="2" style="padding:20px 28px 14px 28px;">
+    <a href="https://www.perionlighting.com" style="text-decoration:none;display:inline-block;line-height:0;">
+      <img src="${LOGO_URL}" alt="Perion Perimeter Lighting Systems" width="185" style="display:block;border:0;max-width:185px;"/>
+    </a>
+  </td>
+</tr>
+<tr>
+  <td colspan="2" height="1" style="font-size:0;line-height:0;padding:0 28px;">
+    <div style="height:1px;background:#EBEBEE;font-size:0;line-height:0;">&nbsp;</div>
+  </td>
+</tr>
+<tr>
+  <td style="padding:16px 12px 14px 28px;vertical-align:top;">
+    <div style="font-family:'Oswald','Arial Narrow',Arial,sans-serif;font-size:26px;font-weight:700;color:#0A1D33;text-transform:uppercase;letter-spacing:2px;line-height:1.05;">${d.name.toUpperCase()}</div>
+    <div style="font-family:'Oswald','Arial Narrow',Arial,sans-serif;font-size:11px;font-weight:500;color:#F2A900;text-transform:uppercase;letter-spacing:3.5px;padding-top:5px;">${d.title}</div>
+  </td>
+  <td style="padding:16px 28px 14px 0;vertical-align:top;text-align:right;">
+    <table cellpadding="0" cellspacing="0" border="0" align="right">
+      <tr><td style="padding-bottom:5px;white-space:nowrap;">
+        <span style="display:inline-block;width:5px;height:5px;background:#F2A900;vertical-align:middle;margin-right:6px;"></span>
+        <a href="tel:${d.phone}" style="font-family:'Roboto',Helvetica,Arial,sans-serif;font-size:12px;color:#0A1D33;text-decoration:none;font-weight:500;">${d.phone}</a>
+      </td></tr>
+      <tr><td style="padding-bottom:5px;white-space:nowrap;">
+        <span style="display:inline-block;width:5px;height:5px;background:#F2A900;vertical-align:middle;margin-right:6px;"></span>
+        <a href="mailto:${d.email}" style="font-family:'Roboto',Helvetica,Arial,sans-serif;font-size:12px;color:#0A1D33;text-decoration:none;font-weight:500;">${d.email}</a>
+      </td></tr>
+      <tr><td style="white-space:nowrap;">
+        <span style="display:inline-block;width:5px;height:5px;background:#F2A900;vertical-align:middle;margin-right:6px;"></span>
+        <a href="https://www.perionlighting.com" style="font-family:'Roboto',Helvetica,Arial,sans-serif;font-size:12px;color:#0A1D33;text-decoration:none;font-weight:500;">www.perionlighting.com</a>
+      </td></tr>
+    </table>
+  </td>
+</tr>
+<tr>
+  <td colspan="2" style="padding:0 28px 16px 28px;">
+    <div style="border-top:2px solid #F2A900;padding-top:10px;">
+      <span style="font-family:'Roboto',Helvetica,Arial,sans-serif;font-size:11px;font-style:italic;color:#2B2E34;opacity:0.75;">Lighting That Secures. Infrastructure That Makes Sense.</span>
+    </div>
+  </td>
+</tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="460" style="border-top:1px solid #EBEBEE;table-layout:fixed;">
+<tr>
+  <td width="154" style="border-right:1px solid #EBEBEE;">
+    <a href="data:text/vcard;charset=utf-8,${vcf}" download="${filename}.vcf" style="display:block;padding:11px 8px;text-align:center;background:#F2A900;color:#0A1D33;text-decoration:none;font-family:'Oswald','Arial Narrow',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;">Save to Contacts</a>
+  </td>
+  <td width="153" style="border-right:1px solid #EBEBEE;">
+    <a href="javascript:window.print()" style="display:block;padding:11px 8px;text-align:center;background:#fff;color:#2B2E34;text-decoration:none;font-family:'Oswald','Arial Narrow',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;">Print / Save PDF</a>
+  </td>
+  <td width="153">
+    <a href="data:text/vcard;charset=utf-8,${vcf}" download="${filename}.vcf" style="display:block;padding:11px 8px;text-align:center;background:#fff;color:#2B2E34;opacity:0.72;text-decoration:none;font-family:'Oswald','Arial Narrow',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;">Download .VCF</a>
+  </td>
+</tr>
+</table>
+</div>
+</div>
+</body>
+</html>`;
+    }
+
+    /* ── REPLY EMAIL SIGNATURE HTML ── */
+    function buildReplyEmailHTML(d) {
+      return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>${d.name} — Perion Reply Signature</title>
+<style>
+body{font-family:'Roboto',Helvetica,Arial,sans-serif;margin:0;}
+table{border-collapse:collapse;}
+</style>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" border="0" style="max-width:420px;font-family:'Roboto',Helvetica,Arial,sans-serif;">
+<tbody>
+<tr>
+  <td style="padding-right:20px;border-right:2px solid #F2A900;vertical-align:middle;width:190px;">
+    <img src="${LOGO_URL}" alt="Perion Perimeter Lighting Systems" width="180" style="max-width:180px;display:block;border:none;">
+  </td>
+  <td style="padding-left:20px;vertical-align:middle;">
+    <div style="font-family:'Oswald','Arial Narrow',Arial,sans-serif;color:#0A1D33;font-size:20px;font-weight:700;margin-bottom:2px;text-transform:uppercase;letter-spacing:2px;line-height:1.05;">${d.name}</div>
+    <div style="font-family:'Oswald','Arial Narrow',Arial,sans-serif;color:#F2A900;font-size:11px;font-weight:500;margin-bottom:12px;text-transform:uppercase;letter-spacing:2.5px;">${d.title}</div>
+    <div style="font-family:'Roboto',Helvetica,Arial,sans-serif;color:#2B2E34;font-size:12px;margin-bottom:2px;">
+      <strong style="color:#F2A900;">E:</strong>
+      <a href="mailto:${d.email}" style="color:#2B2E34;text-decoration:none;">${d.email}</a>
+    </div>
+    <div style="font-family:'Roboto',Helvetica,Arial,sans-serif;color:#2B2E34;font-size:12px;margin-bottom:2px;">
+      <strong style="color:#F2A900;">P:</strong>
+      <a href="tel:${d.phone}" style="color:#2B2E34;text-decoration:none;">${d.phone}</a>
+    </div>
+    <div style="font-family:'Roboto',Helvetica,Arial,sans-serif;color:#2B2E34;font-size:12px;">
+      <strong style="color:#F2A900;">W:</strong>
+      <a href="https://www.perionlighting.com" style="color:#2B2E34;text-decoration:none;">www.perionlighting.com</a>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td colspan="2" style="padding-top:14px;">
+    <div style="color:#2B2E34;font-size:10px;font-style:italic;letter-spacing:0.2px;">
+      Lighting That Secures. Infrastructure That Makes Sense.
+    </div>
+  </td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>`;
+    }
+
+    /* ── GENERATE SIGNATURE ── */
+    function generateSignature() {
+      const nameVal   = document.getElementById("name").value.trim();
+      const titleSel  = document.getElementById("title").value;
+      const titleVal  = titleSel === "Other"
+        ? document.getElementById("customTitle").value.trim()
+        : titleSel;
+      const phoneVal  = document.getElementById("phone").value.trim();
+      const emailVal  = document.getElementById("email").value.trim();
+
+      /* Validation */
+      if (!nameVal || !titleVal || !phoneVal || !emailVal) {
+        showError("All fields are required. Please complete the form.");
+        return;
+      }
+
+      if (!validateEmail(emailVal)) {
+        showError("Domain violation — only @perionlighting.com addresses are permitted by Brand Governance.");
+        return;
+      }
+
+      const data = { name: nameVal, title: titleVal, phone: phoneVal, email: emailVal };
+
+      currentHTML = currentType === "new"
+        ? buildNewEmailHTML(data)
+        : buildReplyEmailHTML(data);
+
+      /* Render live preview */
+      const previewDiv = document.getElementById("live-preview");
+      const bodyContent = currentHTML.split("<body>")[1]?.split("</body>")[0] || "";
+
+      if (currentType === "new") {
+        previewDiv.innerHTML = `<div style="width:100%;background:white;overflow:hidden;border:none;">${bodyContent}</div>`;
+      } else {
+        previewDiv.innerHTML = bodyContent;
+      }
+
+      /* Render HTML output */
+      document.getElementById("html-output").textContent = currentHTML;
+    }
+
+    /* ── COPY HTML ── */
+    function copyHTML() {
+      if (!currentHTML) {
+        showError("Generate a signature first before copying.");
+        return;
+      }
+      navigator.clipboard.writeText(currentHTML).then(() => {
+        showToast();
+      }).catch(() => {
+        /* Fallback for older browsers */
+        const ta = document.createElement("textarea");
+        ta.value = currentHTML;
+        ta.style.position = "fixed";
+        ta.style.opacity  = "0";
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        showToast();
+      });
+    }
+
+    /* ── TOAST ── */
+    function showToast() {
+      const toast = document.getElementById("toast");
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2800);
+    }
+
+    /* ── ERROR ── */
+    function showError(msg) {
+      const toast    = document.getElementById("toast");
+      const toastTxt = toast.querySelector(".toast-text");
+      const toastDot = toast.querySelector(".toast-dot");
+
+      toastTxt.textContent      = msg;
+      toastDot.style.background = "#FF4040";
+      toast.style.borderLeftColor = "#FF4040";
+
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+        toastTxt.textContent        = "HTML Copied — Paste into Email Client";
+        toastDot.style.background   = "";
+        toast.style.borderLeftColor = "";
+      }, 3600);
+    }
+
+    /* ── INIT LOG ── */
+    console.log(
+      "%c✅ Perion Signature Compliance Engine — Level 5 Brand Governance — Active",
+      "color:#F2A900;font-weight:800;font-size:12px;background:#0A1D33;padding:6px 12px;"
+    );
+  </script>
+
+</body>
+</html>
